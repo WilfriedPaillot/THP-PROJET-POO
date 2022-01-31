@@ -6,5 +6,8 @@ class Player
     @life_points = 10
   end
 
+  def show_state
+    puts "#{name} a #{life_points} points de vie"
+  end
   
 end
