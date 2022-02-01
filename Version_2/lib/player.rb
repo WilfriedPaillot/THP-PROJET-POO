@@ -1,9 +1,17 @@
 class Player
   attr_accessor :name, :life_points
+  @@ennemies = []
 
   def initialize(name)
     @name = name
     @life_points = 10
+    if self.class == Player
+      @@ennemies << self
+    end
+  end
+
+  def self.all
+    return @@ennemies
   end
 
   def show_state
@@ -15,7 +23,6 @@ class Player
       @life_points -= damages
       if @life_points <= 0
         puts "Le joueur #{@name} a été tué"
-        exit
       end
     end
   end
@@ -23,8 +30,9 @@ class Player
   def attacks(victim)
     puts "Le joueur #{@name} attaque le joueur #{victim.name}"
     damages = compute_damages
-    victim.gets_damages(damages)
     puts "#{@name} vient d'infliger #{damages} points de dégats"
+    puts ""
+    victim.gets_damages(damages)
   end
 
   def compute_damages
@@ -38,6 +46,7 @@ class HumanPlayer < Player
   attr_accessor :weapon_level
   
     def initialize(name)
+      super
       @life_points = 100
       @weapon_level = 1
     end
@@ -66,22 +75,26 @@ class HumanPlayer < Player
       case dice
         when 2..5
           puts "Bravo, tu as trouvé un pack de +50 points de vie !"
-          if 100 - @life_points >= 50
+          if (100 - @life_points) <= 50
             @life_points = 100
+            puts "Tes points de vie sont désormais à #{@life_points} !"
           else
             @life_points += 50
+            puts "Tes points de vie sont désormais à #{@life_points} !"
           end
         when 6
           puts "Waow, tu as trouvé un pack de +80 points de vie !"
-          if 100 - @life_points >= 20
+          if (100 - @life_points) <= 80
             @life_points = 100
+            puts "Tes points de vie sont désormais à #{@life_points} !"
           else
             @life_points += 80
+            puts "Tes points de vie sont désormais à #{@life_points} !"
           end
         else
           puts "Tu n'as rien trouvé..." 
       end
     end
   
-  
   end
+
