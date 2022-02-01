@@ -60,6 +60,28 @@ class HumanPlayer < Player
         (puts "Votre équipement actuel est #{@weapon_level - dice} niveau(x) au dessus, jetez-moi ça!")
       end
     end
+
+    def search_health_pack
+      dice = rand(1..6)
+      case dice
+        when 2..5
+          puts "Bravo, tu as trouvé un pack de +50 points de vie !"
+          if 100 - @life_points >= 50
+            @life_points = 100
+          else
+            @life_points += 50
+          end
+        when 6
+          puts "Waow, tu as trouvé un pack de +80 points de vie !"
+          if 100 - @life_points >= 20
+            @life_points = 100
+          else
+            @life_points += 80
+          end
+        else
+          puts "Tu n'as rien trouvé..." 
+      end
+    end
   
   
   end
