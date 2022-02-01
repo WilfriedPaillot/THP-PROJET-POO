@@ -11,12 +11,13 @@ class Player
   end
 
   def gets_damages(damages)
-    #if damages.respond_to?(:to_i)
+    if damages.respond_to?(:to_i)
       @life_points -= damages
       if @life_points <= 0
         puts "Le joueur #{@name} a été tué"
+        exit
       end
-    #end
+    end
   end
 
   def attacks(victim)
